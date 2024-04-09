@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defensa_civil/nav_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      title: 'Your App Title',
+      darkTheme: ThemeData(
+        brightness: Brightness.dark, // Dark theme settings
+        // Other dark theme properties...
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(
+        brightness: Brightness.light, // Light theme settings
+        // Other theme properties...
+      ),
+      themeMode:
+          ThemeMode.dark, // Set to ThemeMode.system for system-controlled theme
+      debugShowCheckedModeBanner: false,
+
+      home: const MyHomePage(title: 'Defensa Civil'),
     );
   }
 }
@@ -42,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: navbar(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
