@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_defensa_civil/nav_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +14,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your App Title',
+      title: 'Proyecto Final Defensa Civil',
       darkTheme: ThemeData(
         brightness: Brightness.dark, // Dark theme settings
-        // Other dark theme properties...
+        textTheme: GoogleFonts.oswaldTextTheme().copyWith(
+          bodyText1: TextStyle(color: Colors.white),
+          bodyText2: TextStyle(color: Colors.white),
+        ),
       ),
       theme: ThemeData(
         brightness: Brightness.light, // Light theme settings
-        // Other theme properties...
+        textTheme: GoogleFonts.oswaldTextTheme(),
       ),
       themeMode:
-          ThemeMode.dark, // Set to ThemeMode.system for system-controlled theme
+          ThemeMode.dark, 
       debugShowCheckedModeBanner: false,
 
       home: const MyHomePage(title: 'Defensa Civil'),
@@ -40,41 +45,51 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+
+  void _incrementCounter() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: navbar(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.onTertiary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage('https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg'),
+                  colorFilter: ColorFilter.mode(
+                  Colors.black38, // Ajusta la opacidad para oscurecer más o menos
+                    BlendMode.darken, // El BlendMode puede ser darken, multiply, etc.
+                  ),
+                  fit: BoxFit.cover
+                ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
+        backgroundColor: Color.fromARGB(255, 0, 34, 159),
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        
+      ),
+      
     );
   }
 }
