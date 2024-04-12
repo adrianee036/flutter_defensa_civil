@@ -14,7 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 class navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return 
+    Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -56,7 +57,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.notification_important_rounded),
-            title: const Text('News'),
+            title: Text('News', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -83,7 +84,7 @@ class navbar extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.home_max_rounded),
-            title: const Text('Inicio'),
+            title: Text('Inicio',style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -93,7 +94,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.history_edu_rounded),
-            title: const Text('Historia'),
+            title:  Text('Historia', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -103,7 +104,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home_repair_service_rounded),
-            title: const Text('Servicio'),
+            title: Text('Servicio', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -113,7 +114,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.newspaper_rounded),
-            title: const Text('Noticia'),
+            title: Text('Noticia', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -123,7 +124,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.video_collection_rounded),
-            title: const Text('Video'),
+            title: Text('Video', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -133,7 +134,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.house_siding_rounded),
-            title: const Text('Albergue'),
+            title:  Text('Albergue', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -142,8 +143,8 @@ class navbar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.maps_home_work_rounded),
-            title: const Text('Mapa de Albergue'),
+            leading: const Icon(Icons.map_rounded),
+            title:  Text('Mapa de Albergue', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -153,7 +154,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.medical_services_rounded),
-            title: const Text('Medicina Preventiva'),
+            title:  Text('Medicina Preventiva', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -163,7 +164,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person_add_rounded),
-            title: const Text('Miembro'),
+            title:  Text('Miembro', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,
@@ -173,7 +174,7 @@ class navbar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.people_alt_rounded),
-            title: const Text('Quiero Ser Voluntario'),
+            title:  Text('Quiero Ser Voluntario', style: GoogleFonts.oswald(),),
             onTap: () {
               Navigator.push(
                 context,

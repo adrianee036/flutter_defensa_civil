@@ -4,7 +4,7 @@ import 'package:flutter_defensa_civil/nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.oswaldTextTheme().copyWith(
           bodyText1: TextStyle(color: Colors.white),
           bodyText2: TextStyle(color: Colors.white),
+          
         ),
       ),
       theme: ThemeData(
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
               image: DecorationImage(
                   image: NetworkImage('https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg'),
                   colorFilter: ColorFilter.mode(
-                  Colors.black38, // Ajusta la opacidad para oscurecer más o menos
+                  Colors.black26, // Ajusta la opacidad para oscurecer más o menos
                     BlendMode.darken, // El BlendMode puede ser darken, multiply, etc.
                   ),
                   fit: BoxFit.cover
