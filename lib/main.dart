@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_defensa_civil/nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_defensa_civil/Theme/dark_theme.dart';
 
 void main() {
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,22 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Proyecto Final Defensa Civil',
-      darkTheme: ThemeData(
-        brightness: Brightness.dark, // Dark theme settings
-        textTheme: GoogleFonts.oswaldTextTheme().copyWith(
-          bodyText1: TextStyle(color: Colors.white),
-          bodyText2: TextStyle(color: Colors.white),
-          
-        ),
-      ),
+      darkTheme: Apptheme().getTheme(),
       theme: ThemeData(
         brightness: Brightness.light, // Light theme settings
         textTheme: GoogleFonts.oswaldTextTheme(),
       ),
-      themeMode:
-          ThemeMode.dark, 
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-
       home: const MyHomePage(title: 'Defensa Civil'),
     );
   }
@@ -46,8 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   void _incrementCounter() {}
 
   @override
@@ -55,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: navbar(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onTertiary,
+        //backgroundColor: Theme.of(context).colorScheme.onTertiary,
         title: Text(widget.title),
       ),
       body: Stack(
@@ -63,32 +53,26 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage('https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg'),
+                  image: NetworkImage(
+                      'https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg'),
                   colorFilter: ColorFilter.mode(
-                  Colors.black26, // Ajusta la opacidad para oscurecer más o menos
-                    BlendMode.darken, // El BlendMode puede ser darken, multiply, etc.
+                    Colors
+                        .black26, // Ajusta la opacidad para oscurecer más o menos
+                    BlendMode
+                        .darken, // El BlendMode puede ser darken, multiply, etc.
                   ),
-                  fit: BoxFit.cover
-                ),
+                  fit: BoxFit.cover),
             ),
           ),
-          Center(
+          const Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                
+                //Padding()
               ],
             ),
           ),
         ],
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        backgroundColor: Color.fromARGB(255, 0, 34, 159),
-        child: const Icon(Icons.add),
-        
       ),
       
     );
