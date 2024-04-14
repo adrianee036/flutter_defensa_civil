@@ -31,7 +31,7 @@ class _ServicioState extends State<Servicio> {
         datos = jsonDecode(response.body)['datos'];
       });
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('fallo api');
     }
   }
 

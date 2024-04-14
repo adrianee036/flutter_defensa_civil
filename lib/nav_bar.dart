@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defensa_civil/Extras/iniciar_seccion.dart';
 import 'package:flutter_defensa_civil/Main Features/inicio.dart';
 import 'package:flutter_defensa_civil/Main Features/albergues_screen.dart';
 import 'package:flutter_defensa_civil/Main Features/historia.dart';
@@ -9,6 +10,11 @@ import 'package:flutter_defensa_civil/Main Features/noticia.dart';
 import 'package:flutter_defensa_civil/Main Features/servicio.dart';
 import 'package:flutter_defensa_civil/Main Features/video.dart';
 import 'package:flutter_defensa_civil/Main Features/voluntario.dart';
+import 'package:flutter_defensa_civil/Post%20Login/mapa_situacion.dart';
+import 'package:flutter_defensa_civil/Post%20Login/mi_situacion.dart';
+import 'package:flutter_defensa_civil/Post%20Login/noticia_especifica.dart';
+import 'package:flutter_defensa_civil/Post%20Login/reportar_situacion.dart';
+import 'package:flutter_defensa_civil/Widgets/user_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -21,13 +27,13 @@ class navbar extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              'Usuario',
+              "${UserData.nombre} ${UserData.apellido}",
               style: GoogleFonts.oswald(
                 textStyle: const TextStyle(fontSize: 20),
               ),
             ),
             accountEmail: Text(
-              'usuarioFlutter@gmail.com',
+              UserData.correo,
               style: GoogleFonts.oswald(
                 textStyle: const TextStyle(fontSize: 16),
               ),
@@ -218,6 +224,84 @@ class navbar extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Voluntario()),
+              );
+            },
+          ),
+                              ListTile(
+            leading: const Icon(Icons.login_rounded),
+            title: Text(
+              'Iniciar Seccion',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
+          ),
+                    ListTile(
+            leading: const Icon(Icons.more_horiz_outlined),
+            title: Text(
+              'Noticia especifica',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NoticiaSpecifica()),
+              );
+            },
+          ),
+                    ListTile(
+            leading: const Icon(Icons.more_horiz_outlined),
+            title: Text(
+              'Reportar',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Reportar()),
+              );
+            },
+          ),
+                    ListTile(
+            leading: const Icon(Icons.more_horiz_outlined),
+            title: Text(
+              'Mis situaciones',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MiSituacion()),
+              );
+            },
+          ),
+                    ListTile(
+            leading: const Icon(Icons.more_horiz_outlined),
+            title: Text(
+              'Mapa de Situacion',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MapaSituacion()),
+              );
+            },
+          ),
+                    ListTile(
+            leading: const Icon(Icons.more_horiz_outlined),
+            title: Text(
+              'cambiar contrasena',
+              style: GoogleFonts.oswald(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
               );
             },
           ),
