@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_defensa_civil/Main Features/inicio.dart';
-import 'package:flutter_defensa_civil/Main Features/albergue.dart';
+import 'package:flutter_defensa_civil/Main Features/albergues_screen.dart';
 import 'package:flutter_defensa_civil/Main Features/historia.dart';
-import 'package:flutter_defensa_civil/Main Features/mapa_albergue.dart';
+import 'package:flutter_defensa_civil/Main Features/mapa_alb_screen.dart';
 import 'package:flutter_defensa_civil/Main Features/medicina_preventiva.dart';
 import 'package:flutter_defensa_civil/Main Features/miembro.dart';
 import 'package:flutter_defensa_civil/Main Features/noticia.dart';
@@ -161,7 +161,7 @@ class navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Albergue()),
+                MaterialPageRoute(builder: (context) => AlberguesList()),
               );
             },
           ),
@@ -174,7 +174,7 @@ class navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Mapa()),
+                MaterialPageRoute(builder: (context) => MapaConMarcadores()),
               );
             },
           ),
