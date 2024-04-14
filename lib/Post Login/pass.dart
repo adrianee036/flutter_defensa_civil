@@ -6,56 +6,52 @@ import 'package:flutter_defensa_civil/Widgets/text_field.dart';
 import 'package:flutter_defensa_civil/Widgets/user_data.dart';
 import 'package:http/http.dart' as http;
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Contrasena extends StatefulWidget {
+  const Contrasena({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Contrasena> createState() => _ContrasenaState();
 }
 
-class _LoginState extends State<Login> {
-  final TextEditingController cedulaController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
+class _ContrasenaState extends State<Contrasena> {
+  final TextEditingController passOldController = TextEditingController();
+  final TextEditingController passNewController = TextEditingController();
   late bool exito;
   late String mensaje;
 
   Future<void> submitData() async {
     var url =
-        Uri.parse('https://adamix.net/defensa_civil/def/iniciar_sesion.php');
+        Uri.parse('https://adamix.net/defensa_civil/def/cambiar_clave.php');
     var response = await http.post(
       url,
       body: {
-        'cedula': cedulaController.text,
-        'clave': passwordController.text,
+        'token': UserData.token,
+        'clave_anterior': passOldController.text,
+        'clave_nueva': passNewController.text,
       },
     );
     var jsonResponse = jsonDecode(response.body);
     exito = jsonResponse['exito'];
     mensaje = jsonResponse['mensaje'];
+    //print(UserData.token);
+    //print('hola');
 
     if (response.statusCode == 200) {
-      var datos = jsonDecode(response.body)['datos'];
-      //print(datos);
-      //print(exito);
-      if (exito) {
-      UserData.nombre = datos['nombre'];
-      UserData.apellido = datos['apellido'];
-      UserData.correo = datos['correo'];
-      UserData.telefono = datos['telefono'];
-      UserData.token = datos['token'];
-      }
-
-      
+      print('exito ${response.statusCode}');   
     } else {
       print('Fallo con código de estado: ${response.statusCode}');
     }
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iniciar Sección'),
+        title: const Text('Contraseña'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -72,18 +68,18 @@ class _LoginState extends State<Login> {
               ),
             ),
             TextFieldWidget(
-              label: 'Cedula',
-              hintText: 'Ingrese su cedula',
-              icon: Icons.rectangle_rounded,
-              controller: cedulaController,
+              label: 'Contraseña Anterior',
+              hintText: 'Ingrese su Contraseña Anterior',
+              icon: Icons.lock_outline,
+              controller: passOldController,
               keyboardType: TextInputType.number,
               pass: false,
             ),
             TextFieldWidget(
-              label: 'Contraseña',
-              hintText: 'Ingrese su contraseña',
-              icon: Icons.password_rounded,
-              controller: passwordController,
+              label: 'Contraseña Nueva',
+              hintText: 'Ingrese su Contraseña Nueva',
+              icon: Icons.lock_outline_rounded,
+              controller: passNewController,
               keyboardType: TextInputType.visiblePassword,
               pass: true,
             ),
@@ -91,7 +87,7 @@ class _LoginState extends State<Login> {
             ElevatedButton(
               onPressed: () async {
                 await submitData();
-
+                setState(() {});
                 SnackBar snackBar;
                 if (exito) {
                   snackBar = SnackBar(
@@ -99,7 +95,7 @@ class _LoginState extends State<Login> {
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.transparent,
                     content: AwesomeSnackbarContent(
-                      title: "Bienvenido ${UserData.nombre}",
+                      title: "Contraseña Cambiada",
                       message: '',
 
                       /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
@@ -135,7 +131,7 @@ class _LoginState extends State<Login> {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_defensa_civil/Extras/iniciar_seccion.dart';
 import 'package:flutter_defensa_civil/Main Features/inicio.dart';
 import 'package:flutter_defensa_civil/Main Features/albergues_screen.dart';
 import 'package:flutter_defensa_civil/Main Features/historia.dart';
@@ -18,7 +17,18 @@ import 'package:flutter_defensa_civil/Widgets/user_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class navbar extends StatelessWidget {
+
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
+
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+
+class _NavBarState extends State<NavBar> {
+  var esVisible = UserData.nombre.isNotEmpty ;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -67,246 +77,110 @@ class navbar extends StatelessWidget {
                   ),
                 )),
           ),
-          ListTile(
-            leading: const Icon(Icons.notification_important_rounded),
-            title: Text(
-              'News',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Inicio()),
-              );
-            },
-            trailing: ClipOval(
-              child: Container(
-                color: Colors.red,
-                width: 20,
-                height: 20,
-                child: const Center(
-                  child: Text(
-                    '8',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.home_max_rounded),
-            title: Text(
-              'Inicio',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Inicio()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.history_edu_rounded),
-            title: Text(
-              'Historia',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HistoriaPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.home_repair_service_rounded),
-            title: Text(
-              'Servicio',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Servicio()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.newspaper_rounded),
-            title: Text(
-              'Noticias',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NoticiasPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.video_collection_rounded),
-            title: Text(
-              'Video',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Video()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.house_siding_rounded),
-            title: Text(
-              'Albergue',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AlberguesList()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.map_rounded),
-            title: Text(
-              'Mapa de Albergue',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MapaConMarcadores()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.medical_services_rounded),
-            title: Text(
-              'Medicina Preventiva',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Medicina()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person_add_rounded),
-            title: Text(
-              'Miembro',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Miembro()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.people_alt_rounded),
-            title: Text(
-              'Quiero Ser Voluntario',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Voluntario()),
-              );
-            },
-          ),
-                              ListTile(
-            leading: const Icon(Icons.login_rounded),
-            title: Text(
-              'Iniciar Seccion',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Login()),
-              );
-            },
-          ),
-                    ListTile(
-            leading: const Icon(Icons.more_horiz_outlined),
-            title: Text(
+                    _buildListTile(
+              Icons.more_horiz_outlined,
               'Noticia especifica',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NoticiaSpecifica()),
-              );
-            },
-          ),
-                    ListTile(
-            leading: const Icon(Icons.more_horiz_outlined),
-            title: Text(
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NoticiaSpecifica())),
+              esVisible),
+          _buildListTile(
+              Icons.more_horiz_outlined,
               'Reportar',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Reportar()),
-              );
-            },
-          ),
-                    ListTile(
-            leading: const Icon(Icons.more_horiz_outlined),
-            title: Text(
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Reportar())),
+              esVisible),
+          _buildListTile(
+              Icons.more_horiz_outlined,
               'Mis situaciones',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MiSituacion()),
-              );
-            },
-          ),
-                    ListTile(
-            leading: const Icon(Icons.more_horiz_outlined),
-            title: Text(
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MiSituacion())),
+              esVisible),
+          _buildListTile(
+              Icons.more_horiz_outlined,
               'Mapa de Situacion',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MapaSituacion()),
-              );
-            },
-          ),
-                    ListTile(
-            leading: const Icon(Icons.more_horiz_outlined),
-            title: Text(
-              'cambiar contrasena',
-              style: GoogleFonts.oswald(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Login()),
-              );
-            },
-          ),
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MapaSituacion())),
+              esVisible),
+          const Divider(),
+          _buildListTile(
+              Icons.home_max_rounded,
+              'Inicio',
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Inicio())),
+              true),
+          _buildListTile(
+              Icons.history_edu_rounded,
+              'Historia',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HistoriaPage())),
+              true),
+          _buildListTile(
+              Icons.home_repair_service_rounded,
+              'Servicio',
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Servicio())),
+              true),
+          _buildListTile(
+              Icons.newspaper_rounded,
+              'Noticias',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NoticiasPage())),
+              true),
+          _buildListTile(
+              Icons.video_collection_rounded,
+              'Video',
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Video())),
+              true),
+          _buildListTile(
+              Icons.house_siding_rounded,
+              'Albergue',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AlberguesList())),
+              true),
+          _buildListTile(
+              Icons.map_rounded,
+              'Mapa de Albergue',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MapaConMarcadores())),
+              true),
+          _buildListTile(
+              Icons.medical_services_rounded,
+              'Medicina Preventiva',
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Medicina())),
+              true),
+          _buildListTile(
+              Icons.person_add_rounded,
+              'Miembro',
+              () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Miembro())),
+              true),
+          _buildListTile(
+              Icons.people_alt_rounded,
+              'Quiero Ser Voluntario',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Voluntario())),
+              true),
+
         ],
       ),
     );
+  }
+
+  Widget _buildListTile(
+      IconData icon, String title, VoidCallback onTap, bool visible) {
+    return Visibility(
+      visible: visible,
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(
+          title,
+          style: GoogleFonts.oswald(),
+        ),
+        onTap: onTap,
+      ),
+    );
+    
   }
 }

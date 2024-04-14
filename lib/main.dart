@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_defensa_civil/Extras/acerca_de.dart';
+import 'package:flutter_defensa_civil/Extras/iniciar_seccion.dart';
+import 'package:flutter_defensa_civil/Post%20Login/pass.dart';
+import 'package:flutter_defensa_civil/Theme/dark_theme.dart';
 import 'package:flutter_defensa_civil/nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_defensa_civil/Theme/dark_theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Proyecto Final Defensa Civil',
       darkTheme: Apptheme().getTheme(),
       theme: ThemeData(
-        brightness: Brightness.light, // Light theme settings
+        brightness: Brightness.light,
         textTheme: GoogleFonts.oswaldTextTheme(),
       ),
       themeMode: ThemeMode.dark,
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title});
 
   final String title;
 
@@ -38,14 +39,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _incrementCounter() {}
+  int _currentPageIndex = 0;
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentPageIndex = index;
+      switch (_currentPageIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Login()), // Llama a la primera aplicación
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AcercaDe()), // Llama a la primera aplicación
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Contrasena()), // Llama a la primera aplicación
+          );
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: navbar(),
+      drawer: NavBar(),
       appBar: AppBar(
-        //backgroundColor: Theme.of(context).colorScheme.onTertiary,
         title: Text(widget.title),
       ),
       body: Stack(
@@ -53,15 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(
-                      'https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg'),
-                  colorFilter: ColorFilter.mode(
-                    Colors
-                        .black26, // Ajusta la opacidad para oscurecer más o menos
-                    BlendMode
-                        .darken, // El BlendMode puede ser darken, multiply, etc.
-                  ),
-                  fit: BoxFit.cover),
+                image: NetworkImage(
+                  'https://i.ibb.co/3p2VXtV/def-civil-fondo2.jpg',
+                ),
+                colorFilter: ColorFilter.mode(
+                  Colors.black26,
+                  BlendMode.darken,
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const Center(
@@ -74,7 +100,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentPageIndex,
+        onTap: _onPageChanged,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.login),
+            activeIcon: Icon(Icons.login_rounded),
+            label: 'Iniciar Seccion',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.present_to_all_outlined),
+            activeIcon: Icon(Icons.present_to_all_rounded),
+            label: 'Acerca de',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.key_outlined),
+            activeIcon: Icon(Icons.key_rounded),
+            label: 'Contraseña',
+          ),
+        ],
+      ),
     );
   }
 }
