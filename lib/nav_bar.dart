@@ -40,7 +40,10 @@ class navbar extends StatelessWidget {
                   width: 90,
                   height: 90,
                   placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error_outline_rounded, size: 20,),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error_outline_rounded,
+                    size: 20,
+                  ),
                 ),
               ),
             ),
@@ -48,7 +51,8 @@ class navbar extends StatelessWidget {
                 color: Color.fromRGBO(127, 0, 0, 1),
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: CachedNetworkImageProvider('https://i.ibb.co/rHWfzX3/fondo2.jpg'),
+                  image: CachedNetworkImageProvider(
+                      'https://i.ibb.co/rHWfzX3/fondo2.jpg'),
                   colorFilter: ColorFilter.mode(
                     Colors
                         .black45, // Ajusta la opacidad para oscurecer más o menos
@@ -109,7 +113,7 @@ class navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Historia()),
+                MaterialPageRoute(builder: (context) => HistoriaPage()),
               );
             },
           ),
@@ -129,13 +133,13 @@ class navbar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.newspaper_rounded),
             title: Text(
-              'Noticia',
+              'Noticias',
               style: GoogleFonts.oswald(),
             ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Noticia()),
+                MaterialPageRoute(builder: (context) => NoticiasPage()),
               );
             },
           ),
