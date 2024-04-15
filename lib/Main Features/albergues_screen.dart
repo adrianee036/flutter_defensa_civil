@@ -55,11 +55,12 @@ class _AlberguesListState extends State<AlberguesList> {
   muestralo() async {
     albergueList = fetchAlbergues();
     _foundAlbergues = await albergueList;
-    return _foundAlbergues;
+    
   }
 
   @override
   void initState() {
+    _foundAlbergues;
     muestralo();
     super.initState();
   }
