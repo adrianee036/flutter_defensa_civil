@@ -149,7 +149,7 @@ class _NavBarState extends State<NavBar> {
               Icons.emergency,
               'Medidas Preventiva',
               () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MedidasPreventivasList())),
+                  context, MaterialPageRoute(builder: (context) => MedidasPreventivasView())),
               true),
           _buildListTile(
               Icons.person_add_rounded,
