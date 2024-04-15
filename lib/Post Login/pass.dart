@@ -51,7 +51,7 @@ class _ContrasenaState extends State<Contrasena> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contraseña'),
+        title: const Text('Cambiar Contraseña'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,7 +63,7 @@ class _ContrasenaState extends State<Contrasena> {
               width: 80,
               height: 80,
               child: Icon(
-                Icons.security_rounded,
+                Icons.lock_reset_rounded,
                 size: 80,
               ),
             ),

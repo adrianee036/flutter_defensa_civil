@@ -48,19 +48,19 @@ class _MyHomePageState extends State<MyHomePage> {
         case 0:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Login()), // Llama a la primera aplicación
+            MaterialPageRoute(builder: (context) => const Login()),
           );
           break;
         case 1:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AcercaDe()), // Llama a la primera aplicación
+            MaterialPageRoute(builder: (context) => const AcercaDe()),
           );
           break;
         case 2:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Contrasena()), // Llama a la primera aplicación
+            MaterialPageRoute(builder: (context) => const Contrasena()),
           );
           break;
       }
