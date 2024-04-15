@@ -9,6 +9,8 @@ import 'package:flutter_defensa_civil/Main Features/noticia.dart';
 import 'package:flutter_defensa_civil/Main Features/servicio.dart';
 import 'package:flutter_defensa_civil/Main Features/video.dart';
 import 'package:flutter_defensa_civil/Main Features/voluntario.dart';
+import 'package:flutter_defensa_civil/Main Features/Medidas_Preventivas.dart';
+
 import 'package:flutter_defensa_civil/Post%20Login/mapa_situacion.dart';
 import 'package:flutter_defensa_civil/Post%20Login/mi_situacion.dart';
 import 'package:flutter_defensa_civil/Post%20Login/noticia_especifica.dart';
@@ -162,6 +164,13 @@ class _NavBarState extends State<NavBar> {
               () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Voluntario())),
               true),
+                    _buildListTile(
+              Icons.people_alt_rounded,
+              'Quiero Ser Voluntario',
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MedidasPreventivas())),
+              true),
+          
 
         ],
       ),
