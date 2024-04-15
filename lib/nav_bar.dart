@@ -3,7 +3,6 @@ import 'package:flutter_defensa_civil/Main Features/inicio.dart';
 import 'package:flutter_defensa_civil/Main Features/albergues_screen.dart';
 import 'package:flutter_defensa_civil/Main Features/historia.dart';
 import 'package:flutter_defensa_civil/Main Features/mapa_alb_screen.dart';
-import 'package:flutter_defensa_civil/Main Features/medicina_preventiva.dart';
 import 'package:flutter_defensa_civil/Main Features/miembro.dart';
 import 'package:flutter_defensa_civil/Main Features/noticia.dart';
 import 'package:flutter_defensa_civil/Main Features/servicio.dart';
@@ -79,7 +78,7 @@ class _NavBarState extends State<NavBar> {
                   ),
                 )),
           ),
-                    _buildListTile(
+          _buildListTile(
               Icons.more_horiz_outlined,
               'Noticia especifica',
               () => Navigator.push(context,
@@ -147,10 +146,10 @@ class _NavBarState extends State<NavBar> {
                   MaterialPageRoute(builder: (context) => MapaConMarcadores())),
               true),
           _buildListTile(
-              Icons.medical_services_rounded,
+              Icons.emergency,
               'Medicina Preventiva',
               () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Medicina())),
+                  context, MaterialPageRoute(builder: (context) => MedidasPreventivasView())),
               true),
           _buildListTile(
               Icons.person_add_rounded,
@@ -163,14 +162,7 @@ class _NavBarState extends State<NavBar> {
               'Quiero Ser Voluntario',
               () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Voluntario())),
-              true),
-                    _buildListTile(
-              Icons.people_alt_rounded,
-              'Quiero Ser Voluntario',
-              () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MedidasPreventivas())),
-              true),
-          
+              true),          
 
         ],
       ),
