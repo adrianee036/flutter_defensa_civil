@@ -35,8 +35,8 @@ class _AcercaDeState extends State<AcercaDe> {
         Tarjeta(
       image: CachedNetworkImage(
           imageUrl: 'https://i.ibb.co/8xFrJVz/person5.png'),
-      nombre: "Alejandro Camilo",
-      matricula: '1111-5555',
+      nombre: "FELIX ALEJANDRO CAMILO JAVIER",
+      matricula: '2021-1016',
       github: 'https://github.com/alejandrocamilo',
     ),
         Tarjeta(
