@@ -82,7 +82,7 @@ class _NavBarState extends State<NavBar> {
               Icons.more_horiz_outlined,
               'Noticia especifica',
               () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NoticiaSpecifica())),
+                  MaterialPageRoute(builder: (context) => NoticiasEspecificasView())),
               esVisible),
           _buildListTile(
               Icons.more_horiz_outlined,
