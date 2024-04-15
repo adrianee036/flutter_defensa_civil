@@ -22,18 +22,29 @@ class MedidasPreventivasList extends StatefulWidget {
 class _MedidasPreventivasListState extends State<MedidasPreventivasList> {
   late Future<List<MedidaPreventiva>> medidasPreventivasList;
 
-  Future<List<MedidaPreventiva>> fetchMedidasPreventivas() async {
-    final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/medidas_preventivas.php'));
+Future<List<MedidaPreventiva>> fetchMedidasPreventivas() async {
+  final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/medidas_preventivas.php'));
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = jsonDecode(response.body);
-      List<dynamic> medidasPreventivasData = data['medidas']; // El campo 'medidas' contiene la lista de medidas preventivas
-      List<MedidaPreventiva> medidasPreventivasList = medidasPreventivasData.map((json) => MedidaPreventiva.fromJson(json)).toList();
-      return medidasPreventivasList;
-    } else {
-      throw Exception('Failed to load medidas preventivas');
+  if (response.statusCode == 200) {
+    dynamic data = jsonDecode(response.body);
+    print('Datos recibidos: $data');
+    if (data != null) {
+      if (data is List) {
+        List<MedidaPreventiva> medidasPreventivasList = data.map((json) => MedidaPreventiva.fromJson(json)).toList();
+        return medidasPreventivasList;
+      } else if (data is Map<String, dynamic>) {
+        MedidaPreventiva medidaPreventiva = MedidaPreventiva.fromJson(data);
+        return [medidaPreventiva];
+      }
     }
+    print('Datos recibidos son nulos o no válidos');
+    return [];
+  } else {
+    print('Fallo en la solicitud HTTP: ${response.statusCode}');
+    throw Exception('Fallo en la solicitud HTTP: ${response.statusCode}');
   }
+}
+
 
   @override
   void initState() {
