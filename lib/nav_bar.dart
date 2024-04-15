@@ -147,7 +147,7 @@ class _NavBarState extends State<NavBar> {
               true),
           _buildListTile(
               Icons.emergency,
-              'Medicina Preventiva',
+              'Medidas Preventiva',
               () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MedidasPreventivasView())),
               true),
@@ -155,7 +155,7 @@ class _NavBarState extends State<NavBar> {
               Icons.person_add_rounded,
               'Miembro',
               () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Miembro())),
+                  context, MaterialPageRoute(builder: (context) => MiembrosView())),
               true),
           _buildListTile(
               Icons.people_alt_rounded,
