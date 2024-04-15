@@ -26,9 +26,9 @@ class _MedidasPreventivasListState extends State<MedidasPreventivasList> {
     final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/medidas_preventivas.php'));
 
     if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      List<MedidaPreventiva> medidasPreventivasList =
-          data.map((json) => MedidaPreventiva.fromJson(json)).toList();
+      Map<String, dynamic> data = jsonDecode(response.body);
+      List<dynamic> medidasPreventivasData = data['medidas']; // El campo 'medidas' contiene la lista de medidas preventivas
+      List<MedidaPreventiva> medidasPreventivasList = medidasPreventivasData.map((json) => MedidaPreventiva.fromJson(json)).toList();
       return medidasPreventivasList;
     } else {
       throw Exception('Failed to load medidas preventivas');
