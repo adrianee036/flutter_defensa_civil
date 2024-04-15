@@ -53,7 +53,7 @@ class _VoluntarioState extends State<Voluntario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iniciar Sección'),
+        title: const Text('Registrarse'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
