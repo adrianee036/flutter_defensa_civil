@@ -102,9 +102,8 @@ class _MapaConMarcadoresState extends State<MapaConMarcadores> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Center(
-        child: Text('Mapa Albergues'),
-      )),
+        title: Text('Mapa Albergues'),
+      ),
       body: FutureBuilder<List<MarkerData>>(
         future: _futureMarkers,
         builder: (context, snapshot) {

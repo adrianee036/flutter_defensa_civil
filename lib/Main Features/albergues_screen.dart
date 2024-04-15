@@ -88,121 +88,115 @@ class _AlberguesListState extends State<AlberguesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Albergues'),
+        ),
         body: Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-            margin: const EdgeInsets.all(10.0),
-            height: 35,
-            child: Text(
-              'Albergues',
-              style: TextStyle(
-                fontSize: 25,
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              child: TextField(
+                onChanged: (value) => _runFilter(value),
+                decoration: InputDecoration(
+                    labelText: 'Buscar',
+                    suffixIcon: Icon(Icons.search),
+                    hintText: '"Nombre de Albergue"'),
               ),
-            )),
-        Container(
-          margin: const EdgeInsets.all(10.0),
-          child: TextField(
-            onChanged: (value) => _runFilter(value),
-            decoration: InputDecoration(
-                labelText: 'Buscar',
-                suffixIcon: Icon(Icons.search),
-                hintText: '"Nombre de Albergue"'),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          child: FutureBuilder<List<Albergue>>(
-            future: fetchAlbergues(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: _foundAlbergues.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        double latitud =
-                            double.tryParse(_foundAlbergues[index].latitud) ??
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: FutureBuilder<List<Albergue>>(
+                future: fetchAlbergues(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: _foundAlbergues.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            double latitud = double.tryParse(
+                                    _foundAlbergues[index].latitud) ??
                                 0;
-                        double longitud =
-                            double.tryParse(_foundAlbergues[index].longitud) ??
+                            double longitud = double.tryParse(
+                                    _foundAlbergues[index].longitud) ??
                                 0;
-                        Future<String> mostrarDireccion() async {
-                          List<Placemark> placemarks =
-                              await placemarkFromCoordinates(latitud, longitud);
-                          return '${placemarks.first.street}';
-                        }
+                            Future<String> mostrarDireccion() async {
+                              List<Placemark> placemarks =
+                                  await placemarkFromCoordinates(
+                                      latitud, longitud);
+                              return '${placemarks.first.street}';
+                            }
 
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text('Detalles'),
-                            content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Albergue: ${_foundAlbergues[index].edificio}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  FutureBuilder<String>(
-                                    future: mostrarDireccion(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Text('Calle: ${snapshot.data}',
-                                            style: TextStyle(fontSize: 15));
-                                      } else {
-                                        return CircularProgressIndicator();
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                      'Ciudad: ${_foundAlbergues[index].ciudad}',
-                                      style: TextStyle(fontSize: 15)),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                      'Telefono: ${_foundAlbergues[index].telefono}',
-                                      style: TextStyle(fontSize: 15)),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                      'Capacidad: ${_foundAlbergues[index].capacidad}',
-                                      style: TextStyle(fontSize: 15)),
-                                ]),
-                          ),
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text('Detalles'),
+                                content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Albergue: ${_foundAlbergues[index].edificio}',
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      FutureBuilder<String>(
+                                        future: mostrarDireccion(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            return Text(
+                                                'Calle: ${snapshot.data}',
+                                                style: TextStyle(fontSize: 15));
+                                          } else {
+                                            return CircularProgressIndicator();
+                                          }
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          'Ciudad: ${_foundAlbergues[index].ciudad}',
+                                          style: TextStyle(fontSize: 15)),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          'Telefono: ${_foundAlbergues[index].telefono}',
+                                          style: TextStyle(fontSize: 15)),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          'Capacidad: ${_foundAlbergues[index].capacidad}',
+                                          style: TextStyle(fontSize: 15)),
+                                    ]),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                              title: Text(_foundAlbergues[index].edificio),
+                              subtitle: Text(_foundAlbergues[index].ciudad),
+                              trailing: Icon(
+                                Icons.arrow_right,
+                                size: 40,
+                              )),
                         );
                       },
-                      child: ListTile(
-                          title: Text(_foundAlbergues[index].edificio),
-                          subtitle: Text(_foundAlbergues[index].ciudad),
-                          trailing: Icon(
-                            Icons.arrow_right,
-                            size: 40,
-                          )),
                     );
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-              return CircularProgressIndicator();
-            },
-          ),
-        )
-      ],
-    ));
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                  return CircularProgressIndicator();
+                },
+              ),
+            )
+          ],
+        ));
   }
 }
