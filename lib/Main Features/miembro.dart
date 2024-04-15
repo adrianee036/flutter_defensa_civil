@@ -24,18 +24,19 @@ class MiembrosList extends StatefulWidget {
 class _MiembrosListState extends State<MiembrosList> {
   late Future<List<Miembro>> miembrosList;
 
-  Future<List<Miembro>> fetchMiembros() async {
-    final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/miembros.php'));
+Future<List<Miembro>> fetchMiembros() async {
+  final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/miembros.php'));
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      List<Miembro> miembrosList =
-          data.map((json) => Miembro.fromJson(json)).toList();
-      return miembrosList;
-    } else {
-      throw Exception('Failed to load miembros');
-    }
+  if (response.statusCode == 200) {
+    Map<String, dynamic> data = jsonDecode(response.body);
+    List<dynamic> miembrosData = data['datos']; // El campo 'datos' contiene la lista de miembros
+    List<Miembro> miembrosList = miembrosData.map((json) => Miembro.fromJson(json)).toList();
+    return miembrosList;
+  } else {
+    throw Exception('Failed to load miembros');
   }
+}
+
 
   @override
   void initState() {
