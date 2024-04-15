@@ -28,14 +28,25 @@ Future<List<Miembro>> fetchMiembros() async {
   final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/miembros.php'));
 
   if (response.statusCode == 200) {
-    Map<String, dynamic> data = jsonDecode(response.body);
-    List<dynamic> miembrosData = data['datos']; // El campo 'datos' contiene la lista de miembros
-    List<Miembro> miembrosList = miembrosData.map((json) => Miembro.fromJson(json)).toList();
-    return miembrosList;
+    dynamic data = jsonDecode(response.body);
+    print('Datos recibidos: $data');
+    if (data != null) {
+      if (data is List) {
+        List<Miembro> miembrosList = data.map((json) => Miembro.fromJson(json)).toList();
+        return miembrosList;
+      } else if (data is Map<String, dynamic>) {
+        Miembro miembro = Miembro.fromJson(data);
+        return [miembro];
+      }
+    }
+    print('Datos recibidos son nulos o no válidos');
+    return [];
   } else {
-    throw Exception('Failed to load miembros');
+    print('Fallo en la solicitud HTTP: ${response.statusCode}');
+    throw Exception('Fallo en la solicitud HTTP: ${response.statusCode}');
   }
 }
+
 
 
   @override
