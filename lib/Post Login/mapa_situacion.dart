@@ -115,7 +115,7 @@ class _MapaSituacionState extends State<MapaSituacion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mapa Situacion'),
+        title: Text('Mapa Situaciones'),
       ),
       body: FutureBuilder<List<MarkerData>>(
         future: _futureMarkers,
