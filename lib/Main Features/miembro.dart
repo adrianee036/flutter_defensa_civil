@@ -1,108 +1,102 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Miembro {
   final String nombre;
   final String cargo;
+  final String telefono;
+  final String email;
+  final String fotoUrl;
 
-  Miembro({required this.nombre, required this.cargo});
+  Miembro(
+      {required this.nombre,
+      required this.cargo,
+      required this.telefono,
+      required this.email,
+      required this.fotoUrl});
 
   factory Miembro.fromJson(Map<String, dynamic> json) {
     return Miembro(
-      nombre: json['nombre'],
-      cargo: json['cargo'],
+      nombre: json['nombre'] ?? '',
+      cargo: json['cargo'] ?? '',
+      telefono: json['telefono'] ?? '',
+      email: json['email'] ?? '',
+      fotoUrl: json['foto_url'] ??
+          '', // Asegurando que siempre haya un valor para la foto
     );
   }
 }
 
-class MiembrosList extends StatefulWidget {
+class MiembrosView extends StatefulWidget {
   @override
-  State<MiembrosList> createState() => _MiembrosListState();
+  State<MiembrosView> createState() => _MiembrosDefensaCivilViewState();
 }
 
-class _MiembrosListState extends State<MiembrosList> {
-  late Future<List<Miembro>> miembrosList;
+class _MiembrosDefensaCivilViewState extends State<MiembrosView> {
+  late Future<List<Miembro>> miembrosDefensaCivil;
 
-Future<List<Miembro>> fetchMiembros() async {
-  final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/miembros.php'));
+  Future<List<Miembro>> fetchMiembrosDefensaCivil() async {
+    final response = await http
+        .get(Uri.parse('https://adamix.net/defensa_civil/def/miembros.php'));
 
-  if (response.statusCode == 200) {
-    dynamic data = jsonDecode(response.body);
-    print('Datos recibidos: $data');
-    if (data != null) {
-      if (data is List) {
-        List<Miembro> miembrosList = data.map((json) => Miembro.fromJson(json)).toList();
-        return miembrosList;
-      } else if (data is Map<String, dynamic>) {
-        Miembro miembro = Miembro.fromJson(data);
-        return [miembro];
-      }
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body)[
+          'datos']; // Acceso a los datos dentro del objeto de respuesta
+      List<Miembro> miembros =
+          data.map((json) => Miembro.fromJson(json)).toList();
+      return miembros;
+    } else {
+      throw Exception('Fallo al cargar los miembros de la Defensa Civil');
     }
-    print('Datos recibidos son nulos o no válidos');
-    return [];
-  } else {
-    print('Fallo en la solicitud HTTP: ${response.statusCode}');
-    throw Exception('Fallo en la solicitud HTTP: ${response.statusCode}');
   }
-}
-
-
 
   @override
   void initState() {
     super.initState();
-    miembrosList = fetchMiembros();
-  }
-
-  void _runFilter(String enteredKeyword) {
-    // Implementa la lógica de filtrado si es necesario
+    miembrosDefensaCivil = fetchMiembrosDefensaCivil();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Miembros de la Defensa Civil Dominicana'),
+        title: Text('Miembros de la Defensa Civil'),
       ),
-      body: Column(
-        children: [
-          // Puedes agregar un campo de búsqueda si lo deseas
-          // Este ejemplo muestra una lista sin opción de búsqueda
-          Expanded(
-            child: FutureBuilder<List<Miembro>>(
-              future: miembrosList,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Aquí puedes agregar la lógica para mostrar detalles del miembro si es necesario
-                        },
-                        child: ListTile(
-                          title: Text(snapshot.data![index].nombre),
-                          subtitle: Text(snapshot.data![index].cargo),
-                          // Puedes personalizar la apariencia de cada elemento de la lista aquí
-                        ),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('${snapshot.error}'),
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
+      body: FutureBuilder<List<Miembro>>(
+        future: miembrosDefensaCivil,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(snapshot.data![index].fotoUrl),
+                  ),
+                  title: Text(snapshot.data![index].nombre),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Cargo: ${snapshot.data![index].cargo}'),
+                      Text('Teléfono: ${snapshot.data![index].telefono}'),
+                      Text('Email: ${snapshot.data![index].email}'),
+                    ],
+                  ),
                 );
               },
-            ),
-          ),
-        ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
 }
-
