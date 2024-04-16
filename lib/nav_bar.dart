@@ -8,7 +8,7 @@ import 'package:flutter_defensa_civil/Main Features/noticia.dart';
 import 'package:flutter_defensa_civil/Main Features/servicio.dart';
 import 'package:flutter_defensa_civil/Main Features/video.dart';
 import 'package:flutter_defensa_civil/Main Features/voluntario.dart';
-import 'package:flutter_defensa_civil/Main Features/Medidas_Preventivas.dart';
+import 'package:flutter_defensa_civil/Main%20Features/medidas_preventivas.dart';
 
 import 'package:flutter_defensa_civil/Post%20Login/mapa_situacion.dart';
 import 'package:flutter_defensa_civil/Post%20Login/mi_situacion.dart';
@@ -149,13 +149,13 @@ class _NavBarState extends State<NavBar> {
               Icons.emergency,
               'Medidas Preventiva',
               () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MedidasPreventivasList())),
+                  context, MaterialPageRoute(builder: (context) => MedidasPreventivasView())),
               true),
           _buildListTile(
               Icons.person_add_rounded,
               'Miembro',
               () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MiembrosList())),
+                  context, MaterialPageRoute(builder: (context) => MiembrosView())),
               true),
           _buildListTile(
               Icons.people_alt_rounded,
