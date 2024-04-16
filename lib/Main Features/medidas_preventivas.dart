@@ -1,59 +1,48 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MedidaPreventiva {
-  final String medida;
+  final String titulo;
+  final String descripcion;
 
-  MedidaPreventiva({required this.medida});
+  MedidaPreventiva({required this.titulo, required this.descripcion});
 
   factory MedidaPreventiva.fromJson(Map<String, dynamic> json) {
     return MedidaPreventiva(
-      medida: json['medida'],
+      titulo: json['titulo'],
+      descripcion: json['descripcion'],
     );
   }
 }
 
-class MedidasPreventivasList extends StatefulWidget {
+class MedidasPreventivasView extends StatefulWidget {
   @override
-  State<MedidasPreventivasList> createState() => _MedidasPreventivasListState();
+  State<MedidasPreventivasView> createState() => _MedidasPreventivasViewState();
 }
 
-class _MedidasPreventivasListState extends State<MedidasPreventivasList> {
-  late Future<List<MedidaPreventiva>> medidasPreventivasList;
+class _MedidasPreventivasViewState extends State<MedidasPreventivasView> {
+  late Future<List<MedidaPreventiva>> medidasPreventivas;
 
-Future<List<MedidaPreventiva>> fetchMedidasPreventivas() async {
-  final response = await http.get(Uri.parse('https://adamix.net/defensa_civil/def/medidas_preventivas.php'));
+  Future<List<MedidaPreventiva>> fetchMedidasPreventivas() async {
+    final response = await http.get(Uri.parse(
+        'https://adamix.net/defensa_civil/def/medidas_preventivas.php'));
 
-  if (response.statusCode == 200) {
-    dynamic data = jsonDecode(response.body);
-    print('Datos recibidos: $data');
-    if (data != null) {
-      if (data is List) {
-        List<MedidaPreventiva> medidasPreventivasList = data.map((json) => MedidaPreventiva.fromJson(json)).toList();
-        return medidasPreventivasList;
-      } else if (data is Map<String, dynamic>) {
-        MedidaPreventiva medidaPreventiva = MedidaPreventiva.fromJson(data);
-        return [medidaPreventiva];
-      }
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body)[
+          'datos']; // Acceso a los datos dentro del objeto de respuesta
+      List<MedidaPreventiva> medidas =
+          data.map((json) => MedidaPreventiva.fromJson(json)).toList();
+      return medidas;
+    } else {
+      throw Exception('Fallo al cargar las medidas preventivas');
     }
-    print('Datos recibidos son nulos o no válidos');
-    return [];
-  } else {
-    print('Fallo en la solicitud HTTP: ${response.statusCode}');
-    throw Exception('Fallo en la solicitud HTTP: ${response.statusCode}');
   }
-}
-
 
   @override
   void initState() {
     super.initState();
-    medidasPreventivasList = fetchMedidasPreventivas();
-  }
-
-  void _runFilter(String enteredKeyword) {
-    // Implementa la lógica de filtrado si es necesario
+    medidasPreventivas = fetchMedidasPreventivas();
   }
 
   @override
@@ -62,41 +51,28 @@ Future<List<MedidaPreventiva>> fetchMedidasPreventivas() async {
       appBar: AppBar(
         title: Text('Medidas Preventivas'),
       ),
-      body: Column(
-        children: [
-          // Puedes agregar un campo de búsqueda si lo deseas
-          // Este ejemplo muestra una lista sin opción de búsqueda
-          Expanded(
-            child: FutureBuilder<List<MedidaPreventiva>>(
-              future: medidasPreventivasList,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Aquí puedes agregar la lógica para mostrar detalles de la medida preventiva si es necesario
-                        },
-                        child: ListTile(
-                          title: Text(snapshot.data![index].medida),
-                          // Puedes personalizar la apariencia de cada elemento de la lista aquí
-                        ),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('${snapshot.error}'),
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
+      body: FutureBuilder<List<MedidaPreventiva>>(
+        future: medidasPreventivas,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(snapshot.data![index].titulo),
+                  subtitle: Text(snapshot.data![index].descripcion),
                 );
               },
-            ),
-          ),
-        ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
