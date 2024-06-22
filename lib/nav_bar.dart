@@ -117,7 +117,7 @@ class _NavBarState extends State<NavBar> {
               true),
           _buildListTile(
               Icons.home_repair_service_rounded,
-              'Servicio',
+              'Servicios',
               () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Servicio())),
               true),
@@ -129,25 +129,25 @@ class _NavBarState extends State<NavBar> {
               true),
           _buildListTile(
               Icons.video_collection_rounded,
-              'Video',
+              'Videos',
               () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Video())),
               true),
           _buildListTile(
               Icons.house_siding_rounded,
-              'Albergue',
+              'Albergues',
               () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AlberguesList())),
               true),
           _buildListTile(
               Icons.map_rounded,
-              'Mapa de Albergue',
+              'Mapa de Albergues',
               () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MapaConMarcadores())),
               true),
           _buildListTile(
               Icons.emergency,
-              'Medidas Preventiva',
+              'Medidas Preventivas',
               () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MedidasPreventivasView())),
               true),
