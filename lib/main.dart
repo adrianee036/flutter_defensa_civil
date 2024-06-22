@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.login),
             activeIcon: Icon(Icons.login_rounded),
-            label: 'Iniciar Seccion',
+            label: 'Iniciar Sesión',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.present_to_all_outlined),
